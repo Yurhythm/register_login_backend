@@ -40,7 +40,7 @@ class AuthController extends BaseController
             return response()->json([
                 'success' => false,
                 'message' => 'Validation Error',
-                'errors' => $e->errors(),
+                'errors' => $e->getMessage(),
             ], 422);
         }
 
