@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -32,13 +31,13 @@ class AuthController extends BaseController
             $datas['name']   =  $user->name;
             $datas['email']  =  $user->email;
 
-            return Response::json([
+            return response()->json([
                 'success' => true,
                 'message' => 'Registration Success',
                 'data' => $datas
             ], 200);
         } catch (\Exception $e) {
-            return Response::json([
+            return response()->json([
                 'success' => false,
                 'message' => 'Validation Error',
                 'errors' => $e->errors(),
@@ -55,7 +54,7 @@ class AuthController extends BaseController
         ]);
 
         if (!Auth::attempt($credentials)) {
-            return Response::json([
+            return response()->json([
                 'success' => false,
                 'message' => 'Invalid login credentials',
             ], 401);
@@ -68,7 +67,7 @@ class AuthController extends BaseController
         $datas['name']   =  $user->name;
         $datas['email']  =  $user->email;
 
-        return Response::json([
+        return response()->json([
             'success' => true,
             'message' => 'Login Success',
             'data' => $datas
@@ -79,13 +78,13 @@ class AuthController extends BaseController
     {
         if ($request->user()!=null) {
             $request->user()->currentAccessToken()->delete();
-            return Response::json([
+            return response()->json([
                 'success' => true,
                 'message' => 'Logout Success',
             ], 200);
         }
 
-        return Response::json([
+        return response()->json([
             'success' => true,
             'message' => 'Already Logout',
         ], 200);
