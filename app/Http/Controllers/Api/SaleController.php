@@ -13,7 +13,7 @@ class SaleController extends BaseController
     public function index()
     {
         $sales = Sale::withCount('items')
-            ->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return response()->json($sales);
@@ -42,7 +42,6 @@ class SaleController extends BaseController
     {
         try {
             $request->validate([
-                'date' => 'required|date',
                 'customer_code' => 'nullable|string',
                 'customer_name' => 'nullable|string',
                 'payment_method' => 'required|string',
@@ -75,7 +74,6 @@ class SaleController extends BaseController
                 $sale = Sale::create([
                     'id' => (string) Str::uuid(),
                     'sale_code' => $newCode,
-                    'date' => $request->date,
                     'customer_code' => $request->customer_code,
                     'customer_name' => $request->customer_name,
                     'payment_method' => $request->payment_method,
@@ -101,7 +99,6 @@ class SaleController extends BaseController
                 'message' => 'Transaksi berhasil dibuat',
                 'data' => [
                     'sale_code' => $newCode,
-                    'date' => $request->date,
                     'customer_code' => $request->customer_code,
                     'customer_name' => $request->customer_name,
                     'payment_method' => $request->payment_method,
