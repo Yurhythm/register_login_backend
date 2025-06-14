@@ -43,8 +43,8 @@ class SaleController extends BaseController
         try {
             $request->validate([
                 'date' => 'required|date',
-                'customer_code' => 'required|string',
-                'customer_name' => 'required|string',
+                'customer_code' => 'nullable|string',
+                'customer_name' => 'nullable|string',
                 'payment_method' => 'required|string',
                 'total' => 'required|numeric',
                 'discount' => 'required|numeric',
